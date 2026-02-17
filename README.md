@@ -1,114 +1,118 @@
-📂 Application Manager
+# 📂 Application Manager
 
-A desktop utility built with Python + Tkinter (ttkbootstrap) to scan folders, detect duplicate files using SHA-256 hashing, categorize files based on custom keyword rules, and generate structured reports.
+A lightweight desktop utility built with **Python + Tkinter (ttkbootstrap)** to:
 
-Designed for simple, fast local file management.
+- 🔍 Scan folders recursively  
+- 🔐 Detect duplicate files using SHA-256 hashing  
+- 🗂️ Categorize files using customizable keyword rules  
+- 📝 Generate structured scan reports  
+- 🧹 Clean duplicate files  
 
-✨ Features
+---
 
-🔍 Recursive folder scanning
+## 🚀 Features
 
-🔐 Duplicate detection using SHA-256 hashing
+- 🔍 Recursive folder scanning  
+- 🔐 SHA-256 based duplicate detection  
+- 🗂️ Keyword-based file categorization  
+- ✏️ Editable rules via GUI  
+- 📄 Automatic report generation  
+- 📜 Logging system  
+- 🌙 Dark themed UI (ttkbootstrap)  
 
-🗂️ Keyword-based file categorization
+---
 
-✏️ GUI-based rule editor
+## 🛠 Requirements
 
-🧹 Duplicate file removal
-
-📝 Automatic report generation
-
-📜 Logging system
-
-🌙 Dark-themed UI
-
-🛠️ Requirements
-
-Python 3.8+
-
-ttkbootstrap
+- 🐍 Python 3.8+
+- 🎨 ttkbootstrap
 
 Install dependency:
 
+```bash
 pip install ttkbootstrap
+```
 
-▶️ Running the Application
+---
+
+## ▶️ Run
+
+```bash
 python main.py
+```
 
+---
 
-The GUI window will open.
+## ⚙️ How It Works
 
-⚙️ How It Works
-1️⃣ Folder Scanning
+### 🔐 Duplicate Detection
 
-When you select a folder and click Scan, the application:
+Each file is read in chunks and hashed using:
 
-Recursively walks through all files
+```python
+hashlib.sha256()
+```
 
-Calculates SHA-256 hash for each file
+If two files produce the same hash → they are marked as duplicates.
 
-Detects duplicate files by comparing hashes
+---
 
-If two files have identical hashes → they are marked as duplicates.
+### 🗂️ File Categorization
 
-2️⃣ File Categorization
+Files are categorized based on keywords stored in:
 
-Each file name is checked against keyword rules stored in:
-
+```
 rules.json
-
+```
 
 Example:
 
+```json
 {
   "Games": ["game", "steam", "play"],
   "Development": ["code", "editor", "vscode"],
   "Utilities": ["setup", "tool"],
   "Media": ["music", "video"]
 }
+```
 
+If no keyword matches → file is placed in `Uncategorized`.
 
-If a filename contains a keyword:
+Rules can be modified directly from the GUI.
 
-It is placed in that category
+---
 
-If no match is found → it goes to Uncategorized
-
-Rules can be edited directly from the GUI.
-
-3️⃣ Report Generation
+### 📝 Reports
 
 After every scan:
 
-A detailed session report is saved in:
+Reports are saved in:
 
-/reports/session_report_<timestamp>.txt
+```
+reports/session_report_<timestamp>.txt
+```
 
+Each report contains:
 
-The report includes:
+- 📊 Total duplicates  
+- 📂 Duplicate file paths  
+- 🗂️ Categorized file list  
 
-Total duplicate files
+---
 
-Duplicate file paths
+### 📜 Logging
 
-Categorized file lists
+Application logs are stored in:
 
-4️⃣ Logging
+```
+logs/app_log.log
+```
 
-Application activity is logged in:
+---
 
-/logs/app_log.log
+## 📁 Project Structure
 
-
-This includes scan completion and report creation events.
-
-5️⃣ Duplicate Cleaning
-
-Click Clean Duplicates to remove detected duplicate files.
-
-⚠️ Files are permanently deleted using os.remove().
-
-📁 Project Structure
+```bash
 Application-Manager/
 │
 ├── main.py
@@ -121,17 +125,8 @@ Application-Manager/
 │   └── session_report_<timestamp>.txt
 │
 └── README.md
+```
 
-🔧 Core Logic Overview
-Duplicate Detection
-hashlib.sha256()
+> 📌 Note: `logs/` and `reports/` folders are created automatically if they do not exist.
 
-
-Files are read in chunks and hashed.
-Matching hashes = duplicate files.
-
-Categorization
-
-Simple keyword match:
-
-if keyword in filename.lower():
+---
